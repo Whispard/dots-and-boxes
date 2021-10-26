@@ -18,25 +18,23 @@ export class Line extends Shape {
       this.graphics.beginFill(turn == Token.Player ? "red" : "blue").drawRect(0, 0, this.GAPSIZE - 8, 4);
     else
       this.graphics.beginFill(turn == Token.Player ? "red" : "blue").drawRect(0, 0, 4, this.GAPSIZE - 8);
-    this.mouseEnabled = false;
+    //let newLine = new Line(this.row,)
     console.log("Line drawn");
   }
 
-  public initLine(stage: Stage, hitArea: any) {
+  public initLine(stage: Stage) {
+    let hitBox = new createjs.Shape();
     if (this.axis == Axis.Horizontal) {
       this.x = this.BOARDMARGIN + this.col * this.GAPSIZE + 3;
       this.y = this.BOARDMARGIN - 1 + this.row * this.GAPSIZE - 2;
-      //hitArea.graphics.drawRect(0, -12, this.GAPSIZE - 8, 4 + 8 + 12 + 4);
+      hitBox.graphics.beginFill("gray").drawRect(0, -12, this.GAPSIZE - 5, 4 + 8 + 12 + 4);
     } else {
       this.x = this.BOARDMARGIN + this.col * this.GAPSIZE - 3;
       this.y = this.BOARDMARGIN + this.row * this.GAPSIZE + 3;
-      this.graphics.beginFill("white").drawRect(-10, 0, 24, this.GAPSIZE);
+      hitBox.graphics.beginFill("white").drawRect(-10, 0, 24, this.GAPSIZE);
 
     }
-    //hitArea.x = this.x;
-    //hitArea.y = this.y;
-    //stage.addChild(hitArea);
-    //this.hitArea = hitArea;
+      this.hitArea = hitBox;
   }
 
 }

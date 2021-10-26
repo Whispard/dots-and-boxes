@@ -7,6 +7,7 @@ import {Axis} from "../model/axis.model";
 import {Box} from "../model/box.model";
 import * as createjs from "createjs-module";
 import {Move} from "../model/move.model";
+import {Stage} from "createjs-module";
 
 @Component({
   selector: 'app-game-window',
@@ -44,16 +45,18 @@ export class GameWindowComponent implements OnInit {
 
     for (const box of newBoxes)
       this.renderNewBox(box);
+    //this.stage.setChildIndex(targetLine,this.stage.numChildren-1);
     this.stage.update();
 
   }
 
-  private horListener = (e:any) =>
-  {this.gameService.makeMove(e.target.row,e.target.col,this.turn,Axis.Horizontal);
-    console.log("click hor listener");}
+  private horListener = (e:any) => {
+    this.gameService.makeMove(e.target.row,e.target.col,this.turn,Axis.Horizontal);
+    console.log("click hor listener");
+  }
 
   private verListener = (e:any) =>{
-    this.gameService.makeMove(e.target.row,e.target.col,this.turn,Axis.Vertical);console.log("click hor listener");}
+    this.gameService.makeMove(e.target.row,e.target.col,this.turn,Axis.Vertical);console.log("click ver listener");}
 
   private renderNewBox(box: Box): void{
     let boxShape = new createjs.Shape();
@@ -105,21 +108,7 @@ export class GameWindowComponent implements OnInit {
 
   private drawVerLine(row: number, col: number): void {
     let line = new Line(row,col,Axis.Vertical);
-    let hitArea = new createjs.Shape();
-    if(line.axis==Axis.Horizontal){
-      line.x = this.BOARDMARGIN + col * this.GAPSIZE + 3;
-      line.y = this.BOARDMARGIN - 1 + row * this.GAPSIZE - 2;
-      //hitArea.graphics.drawRect(0, -12, this.GAPSIZE - 8, 4 + 8 + 12 + 4);
-    }else {
-      line.x = this.BOARDMARGIN + col * this.GAPSIZE - 3;
-      line.y = this.BOARDMARGIN + row * this.GAPSIZE + 3;
-      //hitArea.graphics.drawRect(-10, 0, 24, this.GAPSIZE);
-    }
-    //hitArea.x = this.x;hitArea.y = this.y;stage.addChild(hitArea);
-    //line.hitArea = hitArea;
-
-    line.initLine(this.stage,hitArea);
-
+    line.initLine(this.stage);
 
     line.addEventListener("click", this.verListener);
     this.stage.addChild(line);
@@ -127,48 +116,14 @@ export class GameWindowComponent implements OnInit {
 
   private drawHorLine(row: number, col: number): void {
     let line = new Line(row, col, Axis.Horizontal);
-    //line.initLine(this.stage);
+    line.initLine(this.stage);
 
     line.addEventListener("click", this.horListener);
-    // line.addEventListener("mouseover",
-    //   (event: any) => this.mouseOverListener(event.target));
-
-    // This listener isn't the reason
-    // line.addEventListener("mouseout",
-    //   (event:any) => this.mouseOutListener(event.target));
-
     this.stage.addChild(line);
   }
 
-  // mouseOverListener = (line:Line)=>{
-  //   //possibly this listener and turn result etc things are racing
-  //   //if(this.turn!=this.gameService.player)
-  //   //  return
-  //
-  //   if(line.axis == Axis.Horizontal)
-  //     line.graphics.beginFill(this.turn == Token.Player ? "red" : "blue").drawRect(0, 0, this.GAPSIZE - 8, 4);
-  //   else
-  //     line.graphics.beginFill(this.turn == Token.Player ? "red" : "blue").drawRect(0, 0,4,  this.GAPSIZE - 8);
-  //   line.alpha = 0.5;
-  //   //console.log("IN");
-  //   this.stage.update();
-  // }
-
-  // mouseOutListener = (line: Line)=>{
-  //   if(!line.mouseEnabled)
-  //     return
-  //
-  //   //console.log("OUT")
-  //
-  //   // I logged this out means this isn't it's reason then?
-  //   //line.graphics.clear();
-  //   line.alpha = 0;
-  //   this.stage.update();
-  // };
-
   public ngAfterViewInit(){
     this.stage = new createjs.Stage("game");
-   // this.stage.enableMouseOver();
     this.draw();
   }
 
