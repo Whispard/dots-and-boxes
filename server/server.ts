@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'dist/multiGame')));
 app.get('/*', function(req, res) {
   res.sendFile('index.html',{root:path.join(__dirname, '../dist/multiGame')});
 });
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 3000);
 
 function getNewBoxes(): Box[] {
     let newBoxes:Box[] = [];
