@@ -6,7 +6,9 @@
     "start": "tsc server/server.ts && node server/server.js",
     "build": "",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc"
   },
   "private": true,
   "dependencies": {
