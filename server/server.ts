@@ -1,9 +1,16 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { Axis, Box, Token, MoveResult, Move } from "./models";
+import * as path from "path";
+import * as express from "express";
+
 
 const httpServer = createServer();
 const io = new Server(httpServer, {});
+
+export const app = express();
+const __dirname = path.resolve(".");
+console.log(__dirname);
 
 let hors:Token[][] = [];
 let vers:Token[][] = [];
@@ -27,6 +34,12 @@ initializeGame();
 httpServer.listen(3000,()=>{
     console.log("Listening")
 });
+
+app.use(express.static(path.join(__dirname, 'dist/multiGame')));
+app.get('/*', function(req, res) {
+  res.sendFile('index.html',{root:path.join(__dirname, '../dist/multiGame')});
+});
+app.listen(process.env.PORT || 8080);
 
 function getNewBoxes(): Box[] {
     let newBoxes:Box[] = [];
@@ -75,7 +88,7 @@ io.on("connection",socket => {
             socket.emit("debug","This is not your turn");
             return;
         }
-        
+
         if(move.axis==Axis.Horizontal && hors[move.col][move.row] == Token.Blank)
             hors[move.col][move.row] = turn;
         else if (move.axis==Axis.Vertical && vers[move.col][move.row]==Token.Blank)
@@ -84,7 +97,7 @@ io.on("connection",socket => {
             socket.emit("debug","Can't draw on already drawn!");
             return;
         }
-        
+
         io.emit("debug","Player "+turn+" moved");
         let newBoxes = getNewBoxes();
         if(newBoxes.length==0)
@@ -93,7 +106,7 @@ io.on("connection",socket => {
             io.emit("debug","Player "+turn+" got Extra Turn");
 
         console.log(turn,newBoxes);
-        io.emit("move-result", { 
+        io.emit("move-result", {
             turn,
             newBoxes,
             move
