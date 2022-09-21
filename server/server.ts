@@ -3,6 +3,7 @@ import { Server, Socket } from "socket.io";
 import { Axis, Box, Token, MoveResult, Move } from "./models";
 import * as path from "path";
 import * as express from "express";
+import * as logger from 'morgan';
 
 
 const httpServer = createServer();
@@ -35,10 +36,12 @@ httpServer.listen(3000,()=>{
     console.log("Listening")
 });
 
-app.use(express.static(path.join(__dirname, '/dist/multiGame')));
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, './dist/multiGame')));
 app.get('/*', function(req, res) {
   res.sendFile('index.html',{root:path.join(__dirname, '../dist/multiGame')});
 });
+
 console.log(path.join(__dirname, '../dist/multiGame'))
 app.listen(process.env.PORT || 8080);
 

@@ -6,6 +6,7 @@ var socket_io_1 = require("socket.io");
 var models_1 = require("./models");
 var path = require("path");
 var express = require("express");
+var logger = require("morgan");
 var httpServer = http_1.createServer();
 var io = new socket_io_1.Server(httpServer, {});
 exports.app = express();
@@ -29,7 +30,8 @@ initializeGame();
 httpServer.listen(3000, function () {
     console.log("Listening");
 });
-exports.app.use(express.static(path.join(__dirname, '/dist/multiGame')));
+exports.app.use(logger('dev'));
+exports.app.use(express.static(path.join(__dirname, './dist/multiGame')));
 exports.app.get('/*', function (req, res) {
     res.sendFile('index.html', { root: path.join(__dirname, '../dist/multiGame') });
 });
