@@ -42,7 +42,7 @@ app.get('/*', function(req, res) {
   res.sendFile('index.html',{root:path.join(__dirname, '../dist/multiGame')});
 });
 
-console.log(path.join(__dirname, '../dist/multiGame'))
+console.log(path.join(__dirname, './dist/multiGame'))
 app.listen(process.env.PORT || 8080);
 
 function getNewBoxes(): Box[] {
