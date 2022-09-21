@@ -2,7 +2,7 @@ import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { Axis, Box, Token, MoveResult, Move } from "./models";
 import * as path from "path";
-import * as express from "express";
+import express from "express";
 import * as logger from 'morgan';
 
 
@@ -38,8 +38,9 @@ initializeGame();
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, './dist/multiGame')));
-app.get('/*', function(req, res) {
+app.get('/', function(req, res) {
   console.log("umm");
+  res.send("hi");
   res.sendFile('index.html',{root:path.join(__dirname, './dist/multiGame')});
 });
 
