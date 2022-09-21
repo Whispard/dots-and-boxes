@@ -45,7 +45,6 @@ export class GameWindowComponent implements OnInit {
 
     for (const box of newBoxes)
       this.renderNewBox(box);
-    //this.stage.setChildIndex(targetLine,this.stage.numChildren-1);
     this.stage.update();
 
   }
