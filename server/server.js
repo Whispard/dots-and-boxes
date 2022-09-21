@@ -33,7 +33,7 @@ exports.app.use(express.static(path.join(__dirname, 'dist/multiGame')));
 exports.app.get('/*', function (req, res) {
     res.sendFile('index.html', { root: path.join(__dirname, '../dist/multiGame') });
 });
-exports.app.listen(process.env.PORT || 8080);
+exports.app.listen(process.env.PORT || 3000);
 function getNewBoxes() {
     var newBoxes = [];
     var newBox = new models_1.Box(-1, -1, models_1.Token.Blank);
