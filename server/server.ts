@@ -39,7 +39,7 @@ httpServer.listen(3000,()=>{
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, './dist/multiGame')));
 app.get('/*', function(req, res) {
-  res.sendFile('index.html',{root:path.join(__dirname, '../dist/multiGame')});
+  res.sendFile('index.html',{root:path.join(__dirname, './dist/multiGame')});
 });
 
 console.log(path.join(__dirname, './dist/multiGame'))
