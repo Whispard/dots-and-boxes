@@ -31,15 +31,15 @@ function initializeGame(){
 }
 
 initializeGame();
-// httpServer.listen(3000,()=>{
-//     console.log("Listening")
-// });
+httpServer.listen(3000,()=>{
+    console.log("Listening")
+});
 
 app.use(express.static(path.join(__dirname, 'dist/multiGame')));
 app.get('/*', function(req, res) {
   res.sendFile('index.html',{root:path.join(__dirname, '../dist/multiGame')});
 });
-// app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
 
 function getNewBoxes(): Box[] {
     let newBoxes:Box[] = [];
