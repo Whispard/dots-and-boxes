@@ -32,13 +32,14 @@ function initializeGame(){
 }
 
 initializeGame();
-httpServer.listen(3000,()=>{
-    console.log("Listening")
-});
+// httpServer.listen(3000,()=>{
+//     console.log("Listening")
+// });
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, './dist/multiGame')));
 app.get('/*', function(req, res) {
+  console.log("umm");
   res.sendFile('index.html',{root:path.join(__dirname, './dist/multiGame')});
 });
 
