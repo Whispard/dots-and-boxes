@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "tsc server/server.ts && node server/server.js",
-    "build": "ng build",
+    "build": "ng build && npm start",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
