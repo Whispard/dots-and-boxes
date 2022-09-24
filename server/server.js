@@ -11,7 +11,7 @@ var httpServer = http_1.createServer();
 var io = new socket_io_1.Server(httpServer, {});
 exports.app = express();
 var __dirname = path.resolve(".");
-console.log(__dirname);
+//console.log(__dirname);
 var hors = [];
 var vers = [];
 var boxes = [];
@@ -31,12 +31,14 @@ httpServer.listen(3000, function () {
     console.log("Listening");
 });
 exports.app.use(logger('dev'));
-exports.app.use(express.static(path.join(__dirname, './dist/multiGame')));
-exports.app.get('/*', function (req, res) {
-    res.sendFile('index.html', { root: path.join(__dirname, './dist/multiGame') });
-});
-console.log(path.join(__dirname, './dist/multiGame'));
-exports.app.listen(process.env.PORT || 8080);
+// app.use(express.static(path.join(__dirname, './dist/multiGame')));
+// app.get('/', function(req, res) {
+//   console.log("umm");
+//   res.send("hi");
+//   res.sendFile('index.html',{root:path.join(__dirname, './dist/multiGame')});
+// });
+//console.log(path.join(__dirname, './dist/multiGame'))
+//app.listen(process.env.PORT || 8080);
 function getNewBoxes() {
     var newBoxes = [];
     var newBox = new models_1.Box(-1, -1, models_1.Token.Blank);

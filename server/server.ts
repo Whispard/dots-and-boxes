@@ -2,7 +2,7 @@ import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { Axis, Box, Token, MoveResult, Move } from "./models";
 import * as path from "path";
-import express from "express";
+import * as express from "express";
 import * as logger from 'morgan';
 
 
@@ -11,7 +11,7 @@ const io = new Server(httpServer, {});
 
 export const app = express();
 const __dirname = path.resolve(".");
-console.log(__dirname);
+//console.log(__dirname);
 
 let hors:Token[][] = [];
 let vers:Token[][] = [];
@@ -32,20 +32,20 @@ function initializeGame(){
 }
 
 initializeGame();
-// httpServer.listen(3000,()=>{
-//     console.log("Listening")
-// });
-
-app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, './dist/multiGame')));
-app.get('/', function(req, res) {
-  console.log("umm");
-  res.send("hi");
-  res.sendFile('index.html',{root:path.join(__dirname, './dist/multiGame')});
+httpServer.listen(3000,()=>{
+    console.log("Listening")
 });
 
-console.log(path.join(__dirname, './dist/multiGame'))
-app.listen(process.env.PORT || 8080);
+app.use(logger('dev'));
+// app.use(express.static(path.join(__dirname, './dist/multiGame')));
+// app.get('/', function(req, res) {
+//   console.log("umm");
+//   res.send("hi");
+//   res.sendFile('index.html',{root:path.join(__dirname, './dist/multiGame')});
+// });
+
+//console.log(path.join(__dirname, './dist/multiGame'))
+//app.listen(process.env.PORT || 8080);
 
 function getNewBoxes(): Box[] {
     let newBoxes:Box[] = [];
